@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,72 @@ public class TestStreams {
     Movie terminator = new Movie("Terminator", 2016, "PG-13", 150);
     Movie transformers = new Movie("Transformers: Animated Movie", 2016, "PG", 100);
     Movie walle = new Movie("Wall-E", 2015, "G", 20);
+
+    @Test
+    public void testEvensOnly(){
+
+        List<Integer> evens = s.evensOnly(Arrays.asList(1,2,3,4,5));
+
+        assertTrue(evens.containsAll(Arrays.asList(2,4)));
+        assertEquals(2, evens.size());
+    }
+
+    @Test
+    public void testCounts(){
+        long count = s.counts(Arrays.asList("Sally", "Jill", "Harper", "Nick", "Fred"));
+
+        assertEquals(5L, count);
+    }
+
+    @Test
+    public void testCountEvens(){
+        long count = s.countEvens(Arrays.asList(1,2,3,4,5));
+
+        assertEquals(2L, count);
+    }
+
+    @Test
+    public void testDistinctOnly(){
+        List<String> expected = Arrays.asList("Sally", "Jill", "Harper", "Nick", "Fred");
+        List<String> distinct = s.distinctOnly(Arrays.asList("Nick", "Sally", "Jill", "Harper", "Nick", "Fred", "Jill"));
+
+        assertEquals(5, distinct.size());
+        assertTrue(distinct.containsAll(expected));
+    }
+
+    @Test
+    public void testDistinctOnlyFirst3(){
+        List<String> expected = Arrays.asList("Nick", "Sally", "Jill");
+        List<String> distinct = s.distinctOnlyFirst3(Arrays.asList("Nick", "Sally", "Jill", "Harper", "Nick", "Fred", "Jill"));
+
+        assertEquals(3, distinct.size());
+        assertTrue(distinct.containsAll(expected));
+    }
+
+    @Test
+    public void testDistinctMax(){
+        int max = s.distinctMax(Arrays.asList(1,5,2,6,8,2,4));
+
+        assertEquals(8, max);
+    }
+
+    @Test
+    public void testSortedStrings(){
+        List<String> sorted = s.sortedStrings(Arrays.asList("Sally", "Jill", "Harper", "Nick", "Fred"));
+
+        assertEquals("Fred", sorted.get(0));
+        assertEquals("Jill", sorted.get(2));
+        assertEquals("Sally", sorted.get(4));
+    }
+
+    @Test
+    public void testReverseSortedStrings(){
+        List<String> sorted = s.reverseSortedStrings(Arrays.asList("Sally", "Jill", "Harper", "Nick", "Fred"));
+
+        assertEquals("Fred", sorted.get(4));
+        assertEquals("Jill", sorted.get(2));
+        assertEquals("Sally", sorted.get(0));
+    }
 
     @Test
     public void testGetLongMovies(){
