@@ -52,7 +52,7 @@ public class Streams {
     }
 
     /**
-     * Takes a list of integers and uses .reduce to return the maximum value
+     * Takes a list of integers and  return the maximum value
      * @param data
      * @return
      */
