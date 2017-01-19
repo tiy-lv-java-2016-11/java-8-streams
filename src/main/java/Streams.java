@@ -1,5 +1,8 @@
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by jeff on 1/17/17.
@@ -12,7 +15,8 @@ public class Streams {
      * @return List<Integer>
      */
     public List<Integer> evensOnly(List<Integer> nums){
-        return null;
+        List<Integer> even = nums.stream().filter(n -> n%2==0).collect(Collectors.toList());
+        return even;
     }
 
     /**
@@ -21,7 +25,8 @@ public class Streams {
      * @return
      */
     public Long counts(List<String> data){
-        return 0L;
+        Long count = data.stream().count();
+        return count;
     }
 
     /**
@@ -30,7 +35,8 @@ public class Streams {
      * @return
      */
     public Long countEvens(List<Integer> nums){
-        return 0L;
+        Long evenCount = nums.stream().filter(n -> n%2==0).count();
+        return evenCount;
     }
 
     /**
@@ -39,7 +45,8 @@ public class Streams {
      * @return
      */
     public List<String> distinctOnly(List<String> data){
-        return null;
+        List<String> distinct = data.stream().distinct().collect(Collectors.toList());
+        return distinct;
     }
 
     /**
@@ -48,7 +55,8 @@ public class Streams {
      * @return
      */
     public List<String> distinctOnlyFirst3(List<String> data){
-        return null;
+        List<String> firstThree = data.stream().limit(3).collect(Collectors.toList());
+        return firstThree;
     }
 
     /**
@@ -57,7 +65,8 @@ public class Streams {
      * @return
      */
     public Integer distinctMax(List<Integer> data){
-        return 0;
+        Integer max = data.stream().reduce(0, Integer::max);
+        return max;
     }
 
     /**
@@ -66,7 +75,8 @@ public class Streams {
      * @return
      */
     public List<String> sortedStrings(List<String> data){
-        return data;
+        List<String> sort = data.stream().sequential().sorted().collect(Collectors.toList());
+        return sort;
     }
 
     /**
@@ -75,7 +85,8 @@ public class Streams {
      * @return
      */
     public List<String> reverseSortedStrings(List<String> data){
-        return null;
+        List<String> reverse = data.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        return reverse;
     }
 
     /**
@@ -84,7 +95,8 @@ public class Streams {
      * @return
      */
     public List<Movie> getLongMovies(List<Movie> movies){
-        return null;
+        List<Movie> longMovies = movies.stream().filter(m -> m.getRunTime() >= 120).collect(Collectors.toList());
+        return longMovies;
     }
 
     /**
@@ -93,7 +105,8 @@ public class Streams {
      * @return
      */
     public List<Movie> getKidMovies(List<Movie> movies){
-        return null;
+        List<Movie> kids = movies.stream().filter(m -> m.getRating().endsWith("G")).collect(Collectors.toList());
+        return kids;
     }
 
     /**
@@ -102,7 +115,8 @@ public class Streams {
      * @return
      */
     public List<Movie> getDistinctMovies(List<Movie> movies){
-        return null;
+        List<Movie> specificMovie = movies.stream().distinct().collect(Collectors.toList());
+        return specificMovie;
     }
 
     /**
@@ -111,7 +125,8 @@ public class Streams {
      * @return
      */
     public List<Movie> getFirst2MoviesShortTitle(List<Movie> movies){
-        return null;
+        List<Movie> firstTwo = movies.stream().limit(2).collect(Collectors.toList());
+        return firstTwo;
     }
 
     /**
@@ -120,7 +135,8 @@ public class Streams {
      * @return
      */
     public List<Movie> sortMoviesByTitle(List<Movie> movies){
-        return null;
+        List<Movie> byTitle = movies.stream().sorted(Comparator.comparing(Movie::getTitle)).collect(Collectors.toList());
+        return byTitle;
     }
 
     /**
@@ -129,7 +145,8 @@ public class Streams {
      * @return
      */
     public List<Movie> reverseSortedByTitle(List<Movie> movies){
-        return null;
+        List<Movie> reversedTitle = movies.stream().sorted(Comparator.comparing(Movie::getTitle).reversed()).collect(Collectors.toList());
+        return reversedTitle;
     }
 
     /**
@@ -138,7 +155,8 @@ public class Streams {
      * @return
      */
     public boolean kidFriendlyList(List<Movie> movies){
-        return true;
+        boolean gRated = movies.stream().allMatch(m -> m.getRating().endsWith("G"));
+        return gRated;
     }
 
     /**
@@ -147,7 +165,8 @@ public class Streams {
      * @return
      */
     public Movie adultNightOut(List<Movie> movies){
-        return null;
+        Optional<Movie> nc17 = movies.stream().filter(m -> m.getRating().endsWith("R")).findFirst();
+        return nc17.get();
     }
 
     /**
@@ -156,17 +175,19 @@ public class Streams {
      * @return
      */
     public List<String> movieTitles(List<Movie> movies){
-        return null;
+        List<String> movieStrings = movies.stream().map(m -> m.getTitle()).collect(Collectors.toList());
+        return movieStrings;
     }
 
     /**
-     * Gets the count of all moves from the given year
+     * Gets the count of all movies from the given year
      * @param movies
      * @param year
      * @return
      */
     public long movieCountForYear(List<Movie> movies, int year){
-        return 0l;
+        Long movieCount = movies.stream().filter(m -> m.getYear() == year).count();
+        return movieCount;
     }
 
     /**
@@ -175,6 +196,7 @@ public class Streams {
      * @return
      */
     public Map<String, Movie> convertToMap(List<Movie> movies){
-        return null;
+        Map <String, Movie> map = movies.stream().collect(Collectors.toMap(m -> m.getTitle(), m ->m));
+        return map;
     }
 }
