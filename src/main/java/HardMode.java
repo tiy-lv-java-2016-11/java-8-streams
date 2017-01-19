@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,7 +15,7 @@ public class HardMode {
      * @return
      */
     public long countFile() throws IOException {
-        return 0;
+        return Files.lines(Paths.get("numbers.txt")).count();
     }
 
     /**
@@ -21,7 +23,7 @@ public class HardMode {
      * @return
      */
     public double averageFile() throws IOException {
-        return 0;
+        return Files.lines(Paths.get("numbers.txt")).mapToInt(Integer::valueOf).average().getAsDouble();
     }
 
     public Map<Integer, List<Movie>> groupByYear(List<Movie> movies){
